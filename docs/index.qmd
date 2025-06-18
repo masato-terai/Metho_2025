@@ -146,8 +146,6 @@ knitr::include_graphics("pics/histograms_coefficients.png")
 knitr::include_graphics("pics/gg_summary.png")
 ```
 
-
-
 ## 結果
 
 | 観点                     | 分散分析（ANOVA）                                | 線形回帰（反復コントラストなど）                   |
