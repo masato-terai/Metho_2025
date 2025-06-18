@@ -18,7 +18,8 @@ highlight-style: atom-one
 code-line-numbers: false
 ---
 
-## 自己紹介
+## はじめに
+こういう現象を見つけたので、皆様と議論したいと思いこのネタを発表します。
 
 ## 帰無仮説検定
 
