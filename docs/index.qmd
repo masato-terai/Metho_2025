@@ -14,6 +14,8 @@ title-slide-attributes:
   data-background-size: 15%
   data-background-opacity: "0.5"
   data-background-position: 5% 98%
+highlight-style: atom-one
+code-line-numbers: false
 ---
 
 ## 自己紹介
@@ -25,10 +27,6 @@ title-slide-attributes:
 
 ## 本題
 - 回帰モデル内の係数が増えると、第一種の過誤も増えるかをシミュレーションで検証
-
-  - 一般線形モデルと、一般化線形混合モデルで比較
-  
-    - 普通に考えてGLMMでも同じ結果になると思いますが、念のため。
 
 ## 先行研究
 - Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., & Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. General Linear Model Journal, 32(1), 1-6.
@@ -55,20 +53,114 @@ title-slide-attributes:
 2. 回帰分析を行いp値を記録を1万回繰り返す
 
 ## 仮説
-- 係数の数 > 1だと、帰無仮説検定を2回行うことになる。従って、1万回のp値の平均は0.05よりも大きくなる。
+- 係数の数 > 1だと、帰無仮説検定を2回行うことになる。従って、第一種の過誤の割合が増加する。
 
-- 係数の数が増えるほど、p値の平均値は大きくなる
-
-## 分析コード（一般線形モデル）
+  - $p \sim \mathrm{Uniform}(0, 1)$が満たされなくなる
+  
+## 分析コード
 <div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
 RのコードはGithubに置いています。高い計算負荷を要求されるのに注意。
 </div>
 
-(コードハイライト機能で説明)
+- 共通の設定
+```{{r}}
+set.seed(123)  # 再現性確保
+n_sim <- 10000  # シミュレーション回数
+n_per_group <- 50  # 各グループのサンプルサイズ
+alpha <- 0.05  # 有意水準
+```
 
-- チャッピーに大分助けられました。
+- 例）1要因2水準モデル
 
-## 結果（一般線形モデル）
+```{{r}}
+results_1factor2 <- replicate(n_sim, {
+  A <- factor(rep(c("X", "Y"), each = n_per_group))  # 2水準
+  y <- rnorm(2 * n_per_group, mean = 0, sd = 2)  # 帰無仮説が正しい
+  
+  model <- lm(y ~ A)  # 線形回帰
+  coef_count_excl_intercept <- length(coef(model)) - 1  # 切片を除いた係数の数を保存
+  p_value <- summary(model)$coefficients[2, 4]  # p値を保存
+  
+  c(p_value, coef_count_excl_intercept) 
+})
+
+# 結果をデータフレームに変換
+results_df_1factor2 <- data.frame(
+  p_value = results_1factor2[1, ],  # p値
+  coef_count = results_1factor2[2, ]  # 切片を除いた係数の数
+)
+```
+
+- 保存した1万個の*p* 値が0.05以下になっているかを確認
+```{{r}}
+mean(results_df_1factor2$p_value < alpha)
+```
+
+## 分析コード
+- 3水準以上だと係数が複数になるため、係数の中で一番小さい *p* 値のみを格納
+
+```{{r}}
+results_2factor2 <- replicate(n_sim, {
+  A <- factor(rep(rep(c("X", "Y"), each = n_per_group), 2)) 
+  B <- factor(rep(c("M", "N"), each = 2 * n_per_group))
+  y <- rnorm(4 * n_per_group, mean = 0, sd = 2) 
+
+  model <- lm(y ~ A + B) 
+  coef_count_excl_intercept <- length(coef(model)) - 1 
+  anova_p <- summary(model)$coefficients[-1, 4] 
+  min_p <- min(anova_p)  # 最小のp値のみを格納
+  
+  c(min_p, coef_count_excl_intercept) 
+})
+
+results_df_4 <- data.frame(
+
+  p_value = results_2factor2[1, ], 
+
+  coef_count = results_2factor2[2, ] 
+)
+```
+
+
+## 作成したモデルとその係数の数
+
+| モデルの内容                             | 係数の数 |
+|------------------------------------------|------------------------|
+| 1要因（2水準）のモデル                   | 1                      |
+| 2要因（いずれも2水準）のモデル           | 2                      |
+| 2要因（2水準と3水準、交互作用なし）のモデル | 3                      |
+| 1要因（2水準）＋連続変数6つ              | 7                      |
+| 1要因（2水準）＋連続変数13つ             | 14                     |
+
+
+## 結果
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/histograms_coefficients.png")
+```
+
+## 結果
+
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/gg_summary.png")
+```
+
+
+
+## 結果
+
+| 観点                     | 分散分析（ANOVA）                                | 線形回帰（反復コントラストなど）                   |
+|--------------------------|--------------------------------------------------|-----------------------------------------------------|
+| 検定の目的               | 群間の**全体的な差**を検出する（F検定）         | 群間の**個別の差**を検出する（t検定）              |
+| モデルの出力             | 1つのF統計量と対応するp値                        | 各係数ごとのt統計量とp値（複数）                   |
+| 検定の多重性       | F検定1つのみなら多重性の問題はない               | 複数の係数に対するt検定があるため多重性が生じる   |
+| 補正の必要性       | 下位検定を行う場合に必要（Tukey等）             | 複数係数の検定結果を見るなら必要（Bonferroni等）   |
+| 群の比較方法             | 事後的にペア比較を実施（Tukey, Bonferroniなど）  | 各水準間の差を係数としてモデルに組み込み           |
+
+## ちなみに
+
+- 一般化線形混合効果モデルでも結果は同じでした
 
 # じゃあどうしよう？
 
@@ -84,11 +176,31 @@ RのコードはGithubに置いています。高い計算負荷を要求され�
 
 - 👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる
 
-- 👎 プログラミングの技術が要求される
+- 👎 プログラミングの技術が要求されるし、理解するのにも時間がかかる
+
+## 解決策３
+### できるだけ探索的な回帰分析をやらない
+
+- モデル内の各係数それぞれの有意性を議論するのではなく、立てたモデル全体で考える（ *F* 検定の結果だけ）
+
+  - モデルのフィッティングを確認し、推定値を確認
+  
+  - 下位検定が必要であれば補正をして行う
+  
 
 ## まとめ
 
 - 係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく
+
+  - どれくらいこのことが分析の結果に与えるのかまでは僕の中で未知数です
+  
+    - だから追試も必要？
+
+- 回帰分析を行う際はモデルと研究課題の関係を理解しておく
+
+<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+これに関する論文や本などで知っているものがあれば是非教えてください。
+</div>
 
 ## 謝辞
 - バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。
