@@ -160,6 +160,12 @@ knitr::include_graphics("pics/gg_summary.png")
 
 - 一般化線形混合効果モデルでも結果は同じでした
 
+
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/gg_GLMM_summary.png")
+```
+
 # じゃあどうしよう？
 
 ## 解決策１
