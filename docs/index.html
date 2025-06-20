@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #383a42;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #383a42; } /* Normal */
+    code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+    code span.an { color: #50a14f; } /* Annotation */
+    code span.at { color: #a626a4; } /* Attribute */
+    code span.bn { color: #986801; } /* BaseN */
+    code span.bu { color: #a626a4; } /* BuiltIn */
+    code span.cf { color: #a626a4; } /* ControlFlow */
+    code span.ch { color: #50a14f; } /* Char */
+    code span.cn { color: #986801; } /* Constant */
+    code span.co { color: #a0a1a7; font-style: italic; } /* Comment */
+    code span.cv { color: #e45649; font-style: italic; } /* CommentVar */
+    code span.do { color: #e45649; } /* Documentation */
+    code span.dt { color: #a626a4; } /* DataType */
+    code span.dv { color: #986801; } /* DecVal */
+    code span.er { color: #f44747; text-decoration: underline; } /* Error */
+    code span.ex { color: #4078f2; font-weight: bold; } /* Extension */
+    code span.fl { color: #986801; } /* Float */
+    code span.fu { color: #4078f2; } /* Function */
+    code span.im { color: #50a14f; } /* Import */
+    code span.in { color: #c45b00; } /* Information */
+    code span.kw { color: #a626a4; } /* Keyword */
+    code span.op { color: #a626a4; } /* Operator */
+    code span.ot { color: #27ae60; } /* Other */
+    code span.pp { color: #a626a4; } /* Preprocessor */
+    code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+    code span.sc { color: #0184bc; } /* SpecialChar */
+    code span.ss { color: #da4453; } /* SpecialString */
+    code span.st { color: #50a14f; } /* String */
+    code span.va { color: #e45649; } /* Variable */
+    code span.vs { color: #da4453; } /* VerbatimString */
+    code span.wa { color: #da4453; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -336,97 +401,300 @@
 </div>
 </div>
 
-  <p class="date">16-06-2025</p>
+  <p class="date">20-06-2025</p>
+</section>
+<section id="はじめに" class="slide level2">
+<h2>はじめに</h2>
+<p>個人的に面白いと思う現象を見つけたので、皆様と議論したいと思いこのネタを発表します。</p>
+</section>
+<section id="帰無仮説検定" class="slide level2">
+<h2>帰無仮説検定</h2>
+<ul>
+<li><p>母数についての推定を行う</p>
+<ul>
+<li><p>帰無仮説が正しいと仮定をし、検定統計量の標本分布（帰無分布）での確率をもとに帰無仮説を検証</p></li>
+<li><p>棄却域が占める割合を有意水準とし、その棄却域に検定統計量が入れば、帰無仮説を棄却し、対立仮説を採択する</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="二つの過誤" class="slide level2">
+<h2>二つの過誤</h2>
+
+<img data-src="pics/error.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</p></section>
+<section id="二つの過誤-1" class="slide level2">
+<h2>二つの過誤</h2>
+<ul>
+<li><p>第一種の過誤：帰無仮説が真なのに、誤って偽だと主張すること</p>
+<ul>
+<li>有意水準 <em>α</em> と一致</li>
+</ul></li>
+<li><p>第二種の過誤：帰無仮説が偽なのに、それを偽であると言えない（保留）すること</p></li>
+</ul>
+</section>
+<section id="検定の多重性" class="slide level2">
+<h2>検定の多重性</h2>
+<ul>
+<li><p>複数の帰無仮説を同時に検定すると、第一種の過誤のリスクが増加</p></li>
+<li><p>例えば、有意水準を <span class="math inline">\(\alpha = 0.05\)</span> として、3つの独立な検定を行う場合：</p>
+<ul>
+<li>各検定で帰無仮説が正しいと仮定すると、<strong>すべての検定で帰無仮説が保留される確率</strong>は</li>
+</ul>
+<p><span class="math display">\[
+(1 - \alpha)^3 = (1 - 0.05)^3 \approx 0.857
+\]</span></p>
+<ul>
+<li>よって、<strong>少なくとも1つの検定で誤って帰無仮説が棄却される確率</strong>は</li>
+</ul>
+<p><span class="math display">\[
+1 - (1 - \alpha)^3 \approx 1 - 0.857 = 0.143
+\]</span></p></li>
+</ul>
+</section>
+<section id="回帰モデル内の係数の数も同時に検証する帰無仮説の数に対応していて2つ以上の係数は第一種の過誤のリスクを増大させてません" class="slide level2">
+<h2>回帰モデル内の係数の数も、同時に検証する帰無仮説の数に対応していて、2つ以上の係数は第一種の過誤のリスクを増大させてません？！</h2>
+</section>
+<section id="回帰分析" class="slide level2">
+<h2>回帰分析</h2>
+<div class="cell" data-as.is="true">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ vs + wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7071 -2.4415 -0.3129  1.4319  6.0156 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  33.0042     2.3554  14.012 1.92e-14 ***
+vs            3.1544     1.1907   2.649   0.0129 *  
+wt           -4.4428     0.6134  -7.243 5.63e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.78 on 29 degrees of freedom
+Multiple R-squared:  0.801, Adjusted R-squared:  0.7873 
+F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
+</div>
+</div>
+</section>
+<section id="回帰分析-1" class="slide level2">
+<h2>回帰分析</h2>
+<ul>
+<li><p><em>F</em> 検定：モデルの当てはまりのよさ</p>
+<ul>
+<li>帰無仮説：「母集団におけるモデル全体としての説明力がゼロ」 × 1</li>
+</ul></li>
+<li><p><em>t</em> 検定：各独立変数と従属変数の関係</p>
+<ul>
+<li><p>帰無仮説：「その説明変数 ( x ) の回帰係数はゼロ」 × 独立変数の数</p></li>
+<li><p>帰無仮説：「切片はゼロ」 × 1</p></li>
+</ul></li>
+</ul>
 </section>
 <section>
-<section id="自己紹介" class="title-slide slide level1 center">
-<h1>自己紹介</h1>
+<section id="シミュレーションで検証してみた" class="title-slide slide level1 center">
+<h1>シミュレーションで検証してみた</h1>
 
-</section>
-<section id="本題" class="slide level2">
-<h2>本題</h2>
-<ul>
-<li><p>回帰モデル内の係数が増えると、第一種の過誤も増えるかをシミュレーションで検証</p>
-<ul>
-<li><p>一般線形モデルと、一般化線形混合モデルで比較</p>
-<ul>
-<li>普通に考えてGLMMでも同じ結果になると思いますが、念のため。</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="先行研究" class="slide level2">
-<h2>先行研究</h2>
-<ul>
-<li>Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., &amp; Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. General Linear Model Journal, 32(1), 1-6.</li>
-</ul>
-</section>
-<section id="sla研究の実情" class="slide level2">
-<h2>SLA研究の実情</h2>
-<ul>
-<li><p>補正自体を行っている研究は少ない？</p>
-<ul>
-<li>自分自身も含めて（小声）</li>
-</ul></li>
-<li><p>補正を行っている研究</p>
-<ul>
-<li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. Language learning, 71(4), 1004-1043.</p>
-<ul>
-<li>査読者からの指摘があったようです</li>
-</ul></li>
-<li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. Instructed Second Language Acquisition, 3(2), 124-152.</p></li>
-</ul></li>
-<li><p>僕が関わっている今査読中の論文でも査読者からの指摘がありました</p></li>
-</ul>
 </section>
 <section id="シミュレーションの方法" class="slide level2">
 <h2>シミュレーションの方法</h2>
 <ol type="1">
 <li><p>帰無仮説が正しい（係数 = 0）データを作成</p></li>
-<li><p>回帰分析を行いp値を記録を1万回繰り返す</p></li>
+<li><p>回帰分析を1万回行い、<em>p</em> 値を記録</p></li>
+<li><p>1万個の <em>p</em> 値の平均が0.05よりも下回っているかを確認</p></li>
 </ol>
-</section>
-<section id="仮説" class="slide level2">
-<h2>仮説</h2>
-<ul>
-<li><p>係数の数 &gt; 1だと、帰無仮説検定を2回行うことになる。従って、1万回のp値の平均は0.05よりも大きくなる。</p></li>
-<li><p>係数の数が増えるほど、p値の平均値は大きくなる</p></li>
-</ul>
-</section>
-<section id="分析コード一般線形モデル" class="slide level2">
-<h2>分析コード（一般線形モデル）</h2>
-<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
-<p>RのコードはGithubに置いています。高い計算負荷を要求されるのに注意。</p>
-</div>
-<p>(コードハイライト機能で説明)</p>
-<ul>
-<li>チャッピーに大分助けられました。</li>
-</ul>
-</section>
-<section id="結果一般線形モデル" class="slide level2">
-<h2>結果（一般線形モデル）</h2>
 </section></section>
 <section>
-<section id="じゃあどうすればいい" class="title-slide slide level1 center">
-<h1>じゃあどうすればいい？</h1>
+<section id="仮説係数の数-1だと帰無仮説検定を2回行うことになる従って第一種の過誤の割合が増加する" class="title-slide slide level1 center">
+<h1>仮説：係数の数 &gt; 1だと、帰無仮説検定を2回行うことになる。従って、第一種の過誤の割合が増加する。</h1>
 
 </section>
+<section id="分析コード" class="slide level2">
+<h2>分析コード</h2>
+<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+<p>RのコードはGithubに置いています。高い計算負荷を要求されるので注意。</p>
+</div>
+<ul>
+<li>共通の設定</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性確保</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">10000</span>  <span class="co"># シミュレーション回数</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">50</span>  <span class="co"># 各グループのサンプルサイズ</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span>  <span class="co"># 有意水準</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>例）1要因2水準モデル</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results_1factor2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>), <span class="at">each =</span> n_per_group))  <span class="co"># 2水準</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">2</span> <span class="sc">*</span> n_per_group, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># 帰無仮説が正しい</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A)  <span class="co"># 線形回帰</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  coef_count_excl_intercept <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(model)) <span class="sc">-</span> <span class="dv">1</span>  <span class="co"># 切片を除いた係数の数を保存</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  p_value <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]  <span class="co"># p値を保存</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(p_value, coef_count_excl_intercept) </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果をデータフレームに変換</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>results_df_1factor2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> results_1factor2[<span class="dv">1</span>, ],  <span class="co"># p値</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_count =</span> results_1factor2[<span class="dv">2</span>, ]  <span class="co"># 切片を除いた係数の数</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>保存した1万個の<em>p</em> 値が0.05以下になっているかを確認</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(results_df_1factor2<span class="sc">$</span>p_value <span class="sc">&lt;</span> alpha)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="分析コード-1" class="slide level2">
+<h2>分析コード</h2>
+<ul>
+<li>3水準以上だと係数が複数になるため、係数の中で一番小さい <em>p</em> 値のみを格納</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>results_2factor2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>), <span class="at">each =</span> n_per_group), <span class="dv">2</span>)) </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"N"</span>), <span class="at">each =</span> <span class="dv">2</span> <span class="sc">*</span> n_per_group))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span> <span class="sc">*</span> n_per_group, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>) </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">+</span> B) </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  coef_count_excl_intercept <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(model)) <span class="sc">-</span> <span class="dv">1</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  anova_p <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>] </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  min_p <span class="ot">&lt;-</span> <span class="fu">min</span>(anova_p)  <span class="co"># 最小のp値のみを格納</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(min_p, coef_count_excl_intercept) </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>results_df_4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> results_2factor2[<span class="dv">1</span>, ], </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_count =</span> results_2factor2[<span class="dv">2</span>, ] </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="作成したモデルとその係数の数" class="slide level2">
+<h2>作成したモデルとその係数の数</h2>
+<table>
+<thead>
+<tr class="header">
+<th>モデルの内容</th>
+<th>係数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1要因（2水準）</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2要因（いずれも2水準）</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>2要因（2水準と3水準、交互作用なし）</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>1要因（2水準）＋連続変数6つ</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>1要因（2水準）＋連続変数13つ</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="結果-p-値のヒストグラム" class="slide level2">
+<h2>結果： <em>p</em> 値のヒストグラム</h2>
+
+<img data-src="pics/histograms_coefficients.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="結果p-値と係数の数" class="slide level2">
+<h2>結果：<em>p</em> 値と係数の数</h2>
+
+<img data-src="pics/gg_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="ちなみに" class="slide level2">
+<h2>ちなみに</h2>
+<ul>
+<li>一般化線形混合効果モデルでも結果は同じでした</li>
+</ul>
+
+<img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="どうしよう" class="title-slide slide level1 center">
+<h1>どうしよう</h1>
+
+<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
 <section id="解決策１" class="slide level2">
 <h2>解決策１</h2>
-<h3 id="p値を補正する">p値を補正する</h3>
+<h3 id="p-値を補正する"><em>p</em> 値を補正する</h3>
 <ul>
-<li><p>👍 Rの関数で簡単にできる。</p></li>
+<li><p>👍 Rの関数で簡単にできる。</p>
+<ul>
+<li>ボンフェロー二補正など(Mundfrom et al., 2006)</li>
+</ul></li>
 <li><p>👎 第二種の過誤（対立仮説が正しいのに帰無仮説を保留する誤り）が増えてしまう</p></li>
+</ul>
+</section>
+<section id="言語研究の実情" class="slide level2">
+<h2>言語研究の実情</h2>
+<ul>
+<li><p>自分自身も含めて（小声）、補正自体を行っている研究は少ない？</p></li>
+<li><p>現状把握している、補正を行っている研究</p>
+<ul>
+<li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. <em>Instructed Second Language Acquisition, 3</em>(2), 124-152.</p></li>
+<li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. <em>Language learning, 71</em>(4), 1004-1043.</p></li>
+<li><p>Passoni, E., de Leeuw, E., &amp; Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. <em>Language and speech, 65</em>(4), 1071-1095.</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="解決策２" class="slide level2">
 <h2>解決策２</h2>
-<h3 id="ベイズ統計に切り替える">ベイズ統計に切り替える</h3>
+<h3 id="ベイズ統計を行う">ベイズ統計を行う</h3>
 <ul>
 <li><p>👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</p></li>
-<li><p>👎 プログラミング、統計学の知識がかなり必要</p></li>
+<li><p>👎 プログラミングの技術が要求されるし、ベイズやるなら最初からやってる</p></li>
 </ul>
 </section>
+<section id="解決策３" class="slide level2">
+<h2>解決策３</h2>
+<h3 id="できるだけ探索的な回帰分析をやらない">できるだけ探索的な回帰分析をやらない</h3>
+<ul>
+<li><p>モデル内の各係数それぞれの有意性を議論するのではなく、立てたモデル全体で考える（ <em>F</em> 検定の結果だけ）</p>
+<ul>
+<li>モデルのフィッティングを確認し、推定値を確認</li>
+</ul></li>
+</ul>
+</section>
+<section id="まとめ" class="slide level2">
+<h2>まとめ</h2>
+<ul>
+<li><p>係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく</p>
+<ul>
+<li><p>どれくらいこの分野に与えるのかは僕の中で未知数です</p>
+<ul>
+<li>だから追試も必要？</li>
+</ul></li>
+</ul></li>
+<li><p>回帰分析を行う際はモデルと研究課題の関係を理解しておく</p></li>
+</ul>
+<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+<p>これに関する論文や本などで知っているものがあれば是非教えてください。</p>
+</div>
+</section></section>
+<section>
+<section id="what-do-you-think" class="title-slide slide level1 center">
+<h1>What do you think?</h1>
+
+<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
 <section id="謝辞" class="slide level2">
 <h2>謝辞</h2>
 <ul>
@@ -435,7 +703,12 @@
 </section></section>
 <section id="引用文献" class="title-slide slide level1 center">
 <h1>引用文献</h1>
-
+<ul>
+<li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. <em>Instructed Second Language Acquisition, 3</em>(2), 124-152.</p></li>
+<li><p>Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., &amp; Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. <em>General Linear Model Journal, 32</em>(1), 1-6.</p></li>
+<li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. <em>Language learning, 71</em>(4), 1004-1043.</p></li>
+<li><p>Passoni, E., de Leeuw, E., &amp; Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. <em>Language and speech, 65</em>(4), 1071-1095.</p></li>
+</ul>
 </section>
 
 <section id="スライドの最後です" class="title-slide slide level1 center">
@@ -655,6 +928,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
