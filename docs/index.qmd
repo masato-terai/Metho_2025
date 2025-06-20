@@ -252,7 +252,7 @@ knitr::include_graphics("pics/question.png")
 # What do you think?
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: right
-knitr::include_graphics("pics/question.png")
+knitr::include_graphics("pics/thinking.png")
 ```
 
 ## 謝辞
