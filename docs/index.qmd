@@ -61,11 +61,12 @@ knitr::include_graphics("pics/error.png")
   1 - (1 - \alpha)^3 \approx 1 - 0.857 = 0.143
   $$
 
-## 回帰モデル内の係数の数も、同時に検証する帰無仮説の数に対応していて、2つ以上の係数は第一種の過誤のリスクを増大させてません？！
+# つまり
+回帰モデル内の係数の数も、同時に検証する帰無仮説の数に対応していて、2つ以上の係数は第一種の過誤のリスクを増大させてる？！
 
 ## 回帰分析
 
-```{r, as.is = T, echo=FALSE}
+```{r}
 model <- lm(mpg ~ vs + wt, data = mtcars)
 summary(model)
 ```
@@ -87,7 +88,7 @@ summary(model)
 
 ## シミュレーションの方法
 
-1. 帰無仮説が正しい（係数 = 0）データを作成
+1. 帰無仮説が正しいデータを作成
 
 2. 回帰分析を1万回行い、*p* 値を記録
 
@@ -104,7 +105,7 @@ RのコードはGithubに置いています。高い計算負荷を要求され�
 ```{{r}}
 set.seed(123)  # 再現性確保
 n_sim <- 10000  # シミュレーション回数
-n_per_group <- 50  # 各グループのサンプルサイズ
+n_per_group <- 150  # 各グループのサンプルサイズ
 alpha <- 0.05  # 有意水準
 ```
 
@@ -139,9 +140,9 @@ mean(results_df_1factor2$p_value < alpha)
 
 ```{{r}}
 results_2factor2 <- replicate(n_sim, {
-  A <- factor(rep(rep(c("X", "Y"), each = n_per_group), 2)) 
-  B <- factor(rep(c("M", "N"), each = 2 * n_per_group))
-  y <- rnorm(4 * n_per_group, mean = 0, sd = 2) 
+A <- factor(rep(rep(c("X", "Y"), each = n_per_group/2), 2))
+  B <- factor(rep(c("M", "N"), each = 2 * n_per_group/2))
+  y <- rnorm(2 * n_per_group, mean = 0, sd = 2) 
 
   model <- lm(y ~ A + B) 
   coef_count_excl_intercept <- length(coef(model)) - 1 
@@ -161,6 +162,7 @@ results_df_4 <- data.frame(
 
 
 ## 作成したモデルとその係数の数
+- すべてのモデルにおいて、サンプル数は300
 
 | モデルの内容                             | 係数 |
 |------------------------------------------|------------------------|
