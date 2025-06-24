@@ -637,8 +637,8 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </tbody>
 </table>
 </section>
-<section id="結果-モデルの最小-p-値のヒストグラム" class="slide level2">
-<h2>結果： モデルの最小 <em>p</em> 値のヒストグラム</h2>
+<section id="結果-モデルの最小-p-値と係数の数" class="slide level2">
+<h2>結果： モデルの最小 <em>p</em> 値と係数の数</h2>
 
 <img data-src="pics/histograms_coefficients.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
 <section id="結果p-値と係数の数" class="slide level2">
@@ -663,11 +663,21 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="p-値を補正する" class="slide level2">
 <h2><em>p</em> 値を補正する？</h2>
 <ul>
-<li><p>👍 Rの関数で簡単にできる。</p>
+<li><p>Rの関数で簡単にできる。</p>
 <ul>
 <li>ボンフェロー二補正など (Mundfrom et al., 2006)</li>
 </ul></li>
+<li><p><code>p.adjust()</code>関数の例</p></li>
 </ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> vs <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># すべての p 値を取得</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pvals_all <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[, <span class="st">"Pr(&gt;|t|)"</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Intercept を除いて取得</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> pvals_all[<span class="fu">names</span>(pvals_all) <span class="sc">!=</span> <span class="st">"(Intercept)"</span>]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 補正（Bonferroni など）</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="言語研究の実情" class="slide level2">
 <h2>言語研究の実情</h2>
@@ -684,7 +694,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="ベイズ統計を行う" class="slide level2">
 <h2>ベイズ統計を行う</h2>
 <ul>
-<li>👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</li>
+<li>帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</li>
 </ul>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -695,7 +705,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <p><strong>重要</strong></p>
 </div>
 <div class="callout-content">
-<p>ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含む = Significant ）。ベイズ統計でも使い方次第で偶然の発見の過大解釈のリスクはゼロではありません。</p>
+<p>ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含まない = Significant ）。ベイズ統計でも使い方次第では偶然の発見の過大解釈のリスクはゼロにはできません。</p>
 </div>
 </div>
 </div>
