@@ -1,5 +1,6 @@
 ---
 title: "帰無仮説検定をもとにした回帰分析の検定の多重性について"
+subtitle: "メソドロジー研究部会　2025年度第1回研究会"
 author: "寺井雅人 (愛知工科大学)"
 date: today
 date-format: "DD-MM-YYYY"
@@ -18,8 +19,16 @@ highlight-style: atom-one
 code-line-numbers: false
 ---
 
-## はじめに
-個人的に面白いと思う現象を見つけたので、皆様と議論したいと思いこのネタを発表します。
+## 自己紹介
+- X: [\@uniquefreshman](https://twitter.com/uniquefreshman)
+
+- 所属：愛知工科大学（2023-）
+
+- 関心のある分野：心理言語学、外国語教育
+
+  - 単語・コロケーションの記憶保持、処理過程
+  
+  - 言語知識の身体性
 
 ## 帰無仮説検定
 
@@ -29,7 +38,6 @@ code-line-numbers: false
 
   - 棄却域が占める割合を有意水準とし、その棄却域に検定統計量が入れば、帰無仮説を棄却し、対立仮説を採択する
   
-
 ## 二つの過誤
 
 ```{r  echo=FALSE, out.width="100%", fig.cap="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" }
@@ -94,12 +102,13 @@ summary(model)
 
 3. 1万個の *p* 値の平均が0.05よりも下回っているかを確認
 
-# 仮説：係数の数 > 1だと、帰無仮説検定を2回行うことになる。従って、第一種の過誤の割合が増加する。
+# 仮説：係数の数 > 1だと、帰無仮説検定を > 1回行うことになる。従って、第一種の過誤の割合が増加する。
 
 ## 分析コード
-<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+
+::: {.callout-note}
 RのコードはGithubに置いています。高い計算負荷を要求されるので注意。
-</div>
+:::
 
 - 共通の設定
 ```{{r}}
@@ -173,7 +182,7 @@ results_df_4 <- data.frame(
 | 1要因（2水準）＋連続変数13つ             | 14                     |
 
 
-## 結果： *p* 値のヒストグラム
+## 結果： モデルの最小 *p* 値のヒストグラム
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: center
 knitr::include_graphics("pics/histograms_coefficients.png")
@@ -190,6 +199,8 @@ knitr::include_graphics("pics/gg_summary.png")
 
 - 一般化線形混合効果モデルでも結果は同じでした
 
+  - **ランダム切片のみ**モデル
+
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: center
 knitr::include_graphics("pics/gg_GLMM_summary.png")
@@ -202,14 +213,11 @@ knitr::include_graphics("pics/gg_GLMM_summary.png")
 knitr::include_graphics("pics/question.png")
 ```
 
-## 解決策１
-### *p* 値を補正する
+## *p* 値を補正する？
 
 - 👍 Rの関数で簡単にできる。
 
-  - ボンフェロー二補正など(Mundfrom et al., 2006)
-
-- 👎 第二種の過誤（対立仮説が正しいのに帰無仮説を保留する誤り）が増えてしまう
+  - ボンフェロー二補正など (Mundfrom et al., 2006)
 
 ## 言語研究の実情
 - 自分自身も含めて（小声）、補正自体を行っている研究は少ない？
@@ -222,34 +230,35 @@ knitr::include_graphics("pics/question.png")
   
   - Passoni, E., de Leeuw, E., & Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. *Language and speech, 65*(4), 1071-1095.
 
-## 解決策２
-### ベイズ統計を行う
+## ベイズ統計を行う
 
 - 👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる
 
-- 👎 プログラミングの技術が要求されるし、ベイズやるなら最初からやってる
+::: {.callout-important title="重要"}
+ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含む = Significant ）。ベイズ統計でも使い方次第で偶然の発見の過大解釈のリスクはゼロではありません。
+:::
 
-## 解決策３
-### できるだけ探索的な回帰分析をやらない
+## できるだけ探索的な回帰分析をやらない
 
-- モデル内の各係数それぞれの有意性を議論するのではなく、立てたモデル全体で考える（ *F* 検定の結果だけ）
+- 帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する
 
-  - モデルのフィッティングを確認し、推定値を確認
+  - 共変量などモデルの全独立変数の係数の有意性を議論するのを避ける
 
-
+  - 複数ある場合は補正をする
+  
 ## まとめ
 
 - 係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく
 
-  - どれくらいこの分野に与えるのかは僕の中で未知数です
+  - それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です
   
     - だから追試も必要？
 
 - 回帰分析を行う際はモデルと研究課題の関係を理解しておく
 
-<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+::: {.callout-note title="お願い"}
 これに関する論文や本などで知っているものがあれば是非教えてください。
-</div>
+:::
 
 # What do you think?
 ```{r  echo=FALSE, out.width="80%"}
@@ -260,7 +269,7 @@ knitr::include_graphics("pics/thinking.png")
 ## 謝辞
 - バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。
 
-# 引用文献
+## 引用文献
 
 - Michel, M., Murakami, A., Alexopoulou, T., & Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. *Instructed Second Language Acquisition, 3*(2), 124-152.
 

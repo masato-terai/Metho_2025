@@ -392,6 +392,7 @@
 
 <section id="title-slide" data-background-image="pics/maron.png" data-background-opacity="0.5" data-background-position="5% 98%" data-background-size="15%" class="quarto-title-block center">
   <h1 class="title">帰無仮説検定をもとにした回帰分析の検定の多重性について</h1>
+  <p class="subtitle">メソドロジー研究部会　2025年度第1回研究会</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -401,11 +402,19 @@
 </div>
 </div>
 
-  <p class="date">23-06-2025</p>
+  <p class="date">24-06-2025</p>
 </section>
-<section id="はじめに" class="slide level2">
-<h2>はじめに</h2>
-<p>個人的に面白いと思う現象を見つけたので、皆様と議論したいと思いこのネタを発表します。</p>
+<section id="自己紹介" class="slide level2">
+<h2>自己紹介</h2>
+<ul>
+<li><p>X: <a href="https://twitter.com/uniquefreshman">@uniquefreshman</a></p></li>
+<li><p>所属：愛知工科大学（2023-）</p></li>
+<li><p>関心のある分野：心理言語学、外国語教育</p>
+<ul>
+<li><p>単語・コロケーションの記憶保持、処理過程</p></li>
+<li><p>言語知識の身体性</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="帰無仮説検定" class="slide level2">
 <h2>帰無仮説検定</h2>
@@ -509,14 +518,24 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ol>
 </section></section>
 <section>
-<section id="仮説係数の数-1だと帰無仮説検定を2回行うことになる従って第一種の過誤の割合が増加する" class="title-slide slide level1 center">
-<h1>仮説：係数の数 &gt; 1だと、帰無仮説検定を2回行うことになる。従って、第一種の過誤の割合が増加する。</h1>
+<section id="仮説係数の数-1だと帰無仮説検定を-1回行うことになる従って第一種の過誤の割合が増加する" class="title-slide slide level1 center">
+<h1>仮説：係数の数 &gt; 1だと、帰無仮説検定を &gt; 1回行うことになる。従って、第一種の過誤の割合が増加する。</h1>
 
 </section>
 <section id="分析コード" class="slide level2">
 <h2>分析コード</h2>
-<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
 <p>RのコードはGithubに置いています。高い計算負荷を要求されるので注意。</p>
+</div>
+</div>
 </div>
 <ul>
 <li>共通の設定</li>
@@ -618,8 +637,8 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </tbody>
 </table>
 </section>
-<section id="結果-p-値のヒストグラム" class="slide level2">
-<h2>結果： <em>p</em> 値のヒストグラム</h2>
+<section id="結果-モデルの最小-p-値のヒストグラム" class="slide level2">
+<h2>結果： モデルの最小 <em>p</em> 値のヒストグラム</h2>
 
 <img data-src="pics/histograms_coefficients.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
 <section id="結果p-値と係数の数" class="slide level2">
@@ -629,7 +648,10 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="ちなみに" class="slide level2">
 <h2>ちなみに</h2>
 <ul>
-<li>一般化線形混合効果モデルでも結果は同じでした</li>
+<li><p>一般化線形混合効果モデルでも結果は同じでした</p>
+<ul>
+<li><strong>ランダム切片のみ</strong>モデル</li>
+</ul></li>
 </ul>
 
 <img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
@@ -638,15 +660,13 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <h1>どうしよう</h1>
 
 <img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
-<section id="解決策１" class="slide level2">
-<h2>解決策１</h2>
-<h3 id="p-値を補正する"><em>p</em> 値を補正する</h3>
+<section id="p-値を補正する" class="slide level2">
+<h2><em>p</em> 値を補正する？</h2>
 <ul>
 <li><p>👍 Rの関数で簡単にできる。</p>
 <ul>
-<li>ボンフェロー二補正など(Mundfrom et al., 2006)</li>
+<li>ボンフェロー二補正など (Mundfrom et al., 2006)</li>
 </ul></li>
-<li><p>👎 第二種の過誤（対立仮説が正しいのに帰無仮説を保留する誤り）が増えてしまう</p></li>
 </ul>
 </section>
 <section id="言語研究の実情" class="slide level2">
@@ -661,21 +681,32 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="解決策２" class="slide level2">
-<h2>解決策２</h2>
-<h3 id="ベイズ統計を行う">ベイズ統計を行う</h3>
+<section id="ベイズ統計を行う" class="slide level2">
+<h2>ベイズ統計を行う</h2>
 <ul>
-<li><p>👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</p></li>
-<li><p>👎 プログラミングの技術が要求されるし、ベイズやるなら最初からやってる</p></li>
+<li>👍 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</li>
 </ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>重要</strong></p>
+</div>
+<div class="callout-content">
+<p>ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含む = Significant ）。ベイズ統計でも使い方次第で偶然の発見の過大解釈のリスクはゼロではありません。</p>
+</div>
+</div>
+</div>
 </section>
-<section id="解決策３" class="slide level2">
-<h2>解決策３</h2>
-<h3 id="できるだけ探索的な回帰分析をやらない">できるだけ探索的な回帰分析をやらない</h3>
+<section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
+<h2>できるだけ探索的な回帰分析をやらない</h2>
 <ul>
-<li><p>モデル内の各係数それぞれの有意性を議論するのではなく、立てたモデル全体で考える（ <em>F</em> 検定の結果だけ）</p>
+<li><p>帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する</p>
 <ul>
-<li>モデルのフィッティングを確認し、推定値を確認</li>
+<li><p>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</p></li>
+<li><p>複数ある場合は補正をする</p></li>
 </ul></li>
 </ul>
 </section>
@@ -684,15 +715,25 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <ul>
 <li><p>係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく</p>
 <ul>
-<li><p>どれくらいこの分野に与えるのかは僕の中で未知数です</p>
+<li><p>それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</p>
 <ul>
 <li>だから追試も必要？</li>
 </ul></li>
 </ul></li>
 <li><p>回帰分析を行う際はモデルと研究課題の関係を理解しておく</p></li>
 </ul>
-<div style="border: #83cafc solid 2px; font-size: 100%; padding: 15px;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>お願い</strong></p>
+</div>
+<div class="callout-content">
 <p>これに関する論文や本などで知っているものがあれば是非教えてください。</p>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -705,17 +746,16 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <ul>
 <li>バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。</li>
 </ul>
-</section></section>
-<section id="引用文献" class="title-slide slide level1 center">
-<h1>引用文献</h1>
+</section>
+<section id="引用文献" class="slide level2">
+<h2>引用文献</h2>
 <ul>
 <li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. <em>Instructed Second Language Acquisition, 3</em>(2), 124-152.</p></li>
 <li><p>Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., &amp; Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. <em>General Linear Model Journal, 32</em>(1), 1-6.</p></li>
 <li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. <em>Language learning, 71</em>(4), 1004-1043.</p></li>
 <li><p>Passoni, E., de Leeuw, E., &amp; Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. <em>Language and speech, 65</em>(4), 1071-1095.</p></li>
 </ul>
-</section>
-
+</section></section>
 <section id="スライドの最後です" class="title-slide slide level1 center">
 <h1>スライドの最後です</h1>
 <div class="footer footer-default">
