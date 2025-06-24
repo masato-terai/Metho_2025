@@ -658,10 +658,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="ちなみに" class="slide level2">
 <h2>ちなみに</h2>
 <ul>
-<li><p>一般化線形混合効果モデルでも結果は同じでした</p>
-<ul>
-<li><strong>ランダム切片のみ</strong>モデル</li>
-</ul></li>
+<li>混合効果モデル（<strong>ランダム切片のみ</strong>）でも結果は同じ</li>
 </ul>
 
 <img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
@@ -702,7 +699,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul>
 </section>
 <section id="ベイズ統計を行う" class="slide level2">
-<h2>ベイズ統計を行う</h2>
+<h2>ベイズ統計を行う？</h2>
 <ul>
 <li>帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</li>
 </ul>
@@ -721,12 +718,12 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </div>
 </section>
 <section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
-<h2>できるだけ探索的な回帰分析をやらない</h2>
+<h2>できるだけ探索的な回帰分析をやらない？</h2>
 <ul>
 <li><p>帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する</p>
 <ul>
+<li><p>関心のある変数が複数ある場合は補正をする</p></li>
 <li><p>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</p></li>
-<li><p>複数ある場合は補正をする</p></li>
 </ul></li>
 </ul>
 </section>

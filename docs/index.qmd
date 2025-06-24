@@ -204,9 +204,7 @@ knitr::include_graphics("pics/gg_summary.png")
 
 ## ちなみに
 
-- 一般化線形混合効果モデルでも結果は同じでした
-
-  - **ランダム切片のみ**モデル
+- 混合効果モデル（**ランダム切片のみ**）でも結果は同じ
 
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: center
@@ -249,7 +247,7 @@ stats::p.adjust(pvals, method = "bonferroni")
   
   - Passoni, E., de Leeuw, E., & Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. *Language and speech, 65*(4), 1071-1095.
 
-## ベイズ統計を行う
+## ベイズ統計を行う？
 
 - 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる
 
@@ -257,13 +255,14 @@ stats::p.adjust(pvals, method = "bonferroni")
 ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含まない = Significant ）。ベイズ統計でも使い方次第では偶然の発見の過大解釈のリスクはゼロにはできません。
 :::
 
-## できるだけ探索的な回帰分析をやらない
+## できるだけ探索的な回帰分析をやらない？
 
 - 帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する
 
+  - 関心のある変数が複数ある場合は補正をする
+
   - 共変量などモデルの全独立変数の係数の有意性を議論するのを避ける
 
-  - 複数ある場合は補正をする
   
 ## まとめ
 
