@@ -19,16 +19,23 @@ highlight-style: atom-one
 code-line-numbers: false
 ---
 
-## 自己紹介
-- X: [\@uniquefreshman](https://twitter.com/uniquefreshman)
+:::{.columns}
 
-- 所属：愛知工科大学（2023-）
+::: {.column width="70%"}
+### 自己紹介
 
-- 関心のある分野：心理言語学、外国語教育
-
-  - 単語・コロケーションの記憶保持、処理過程
-  
+- X: [@uniquefreshman](https://twitter.com/uniquefreshman)  
+- 所属：愛知工科大学（2023–）  
+- 研究分野：心理言語学、外国語教育  
+  - 単語・コロケーションの記憶保持、処理過程  
   - 言語知識の身体性
+:::
+
+::: {.column width="30%"}
+<img src="https://pbs.twimg.com/profile_images/1635931181811404800/c_Hk1vp7_400x400.jpg" width="200" style="border-radius: 50%;">
+:::
+
+:::
 
 ## 帰無仮説検定
 
