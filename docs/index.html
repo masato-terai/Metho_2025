@@ -402,7 +402,7 @@
 </div>
 </div>
 
-  <p class="date">24-06-2025</p>
+  <p class="date">08-07-2025</p>
 </section>
 <section class="slide level2">
 
@@ -428,6 +428,7 @@
 </section>
 <section id="帰無仮説検定" class="slide level2">
 <h2>帰無仮説検定</h2>
+<h3 id="ネイマンピアソン理論">ネイマン=ピアソン理論</h3>
 <ul>
 <li><p>母数についての推定を行う</p>
 <ul>
@@ -505,12 +506,12 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <ul>
 <li><p><em>F</em> 検定：モデルの当てはまりのよさ</p>
 <ul>
-<li>帰無仮説：「母集団におけるモデル全体としての説明力がゼロ」 × 1</li>
+<li>帰無仮説：「母集団におけるモデル全体としての説明力がゼロ」 × 1回</li>
 </ul></li>
 <li><p><em>t</em> 検定：各独立変数と従属変数の関係</p>
 <ul>
 <li><p>帰無仮説：「その説明変数 ( x ) の回帰係数はゼロ」 × 独立変数の数</p></li>
-<li><p>帰無仮説：「切片はゼロ」 × 1</p></li>
+<li><p>帰無仮説：「切片はゼロ」 × 1回</p></li>
 </ul></li>
 </ul>
 </section></section>
@@ -578,7 +579,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>保存した1万個の<em>p</em> 値が0.05以下になっているかを確認</li>
+<li>保存した1万個の<em>p</em> 値が0.05になっているかを確認</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(results_df_1factor2<span class="sc">$</span>p_value <span class="sc">&lt;</span> alpha)</span>
@@ -614,7 +615,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="作成したモデルとその係数の数" class="slide level2">
 <h2>作成したモデルとその係数の数</h2>
 <ul>
-<li>すべてのモデルにおいて、サンプル数は300</li>
+<li><strong>すべてのモデルにおいて、サンプル数は300</strong></li>
 </ul>
 <table>
 <thead>
@@ -654,14 +655,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="結果p-値と係数の数" class="slide level2">
 <h2>結果：<em>p</em> 値と係数の数</h2>
 
-<img data-src="pics/gg_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
-<section id="ちなみに" class="slide level2">
-<h2>ちなみに</h2>
-<ul>
-<li>混合効果モデル（<strong>ランダム切片のみ</strong>）でも結果は同じ</li>
-</ul>
-
-<img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="pics/gg_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="どうしよう" class="title-slide slide level1 center">
 <h1>どうしよう</h1>
@@ -698,37 +692,117 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="ベイズ統計を行う" class="slide level2">
-<h2>ベイズ統計を行う？</h2>
+<section id="階層モデルを使う" class="slide level2">
+<h2>階層モデルを使う？</h2>
 <ul>
-<li>帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</li>
+<li>階層モデルがもたらす<strong>縮約（shrinkage）</strong>の効果</li>
 </ul>
-<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>重要</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含まない = Significant ）。ベイズ統計でも使い方次第では偶然の発見の過大解釈のリスクはゼロにはできません。</p>
+<p><strong>縮約</strong>：各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指す。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になる</p>
 </div>
+</div>
+</div>
+<ul>
+<li><em>p</em> 値の補正よりも推奨されている（e.g., Garcia, 2025）</li>
+</ul>
+</section>
+<section id="ベイズ統計を行う" class="slide level2">
+<h2>ベイズ統計を行う？</h2>
+<ul>
+<li><p>帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる</p></li>
+<li><p>（階層）ベイズで事前分布の活用により<strong>縮約</strong>の恩恵も受けられる</p></li>
+</ul>
+</section></section>
+<section>
+<section id="それで全部解決" class="title-slide slide level1 center">
+<h1>それで全部解決？</h1>
+
+<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="階層モデル" class="slide level2">
+<h2>階層モデル</h2>
+<ul>
+<li>混合効果モデル（<strong>ランダム切片のみ</strong>）</li>
+</ul>
+
+<img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="ベイズモデル階層ではない" class="slide level2">
+<h2>ベイズモデル（階層ではない）</h2>
+<ul>
+<li><p>95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、<strong>95%信用区間に0を含んだ係数の数を記録</strong>。</p></li>
+<li><p><code>Value</code>列はその割合</p></li>
+</ul>
+
+<img data-src="pics/type1_error_table.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="つまり-1" class="slide level2">
+<h2>つまり</h2>
+<ul>
+<li><p>有意か非有意かの2値判断の場合、まぐれ当たりのリスクは階層モデルであろうが<strong>完全には消えない</strong>のでは！？</p></li>
+<li><p>ベイズ統計でも<strong>二値判断を行う解釈</strong>の場合（e.g., 信用区間に0を含まない = Significant ）偶然の発見の過大解釈のリスクはゼロにはできない！？</p></li>
+</ul>
+</section>
+<section id="我々は統計的推測を行っている" class="slide level2">
+<h2>我々は統計的<strong>推測</strong>を行っている</h2>
+<ul>
+<li><p>統計的推測は不確実性を含む</p>
+<ul>
+<li>母平均が0でも、標本平均はばらつく</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.004743404</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.01821291</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.01419882</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.01048952</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03020825</code></pre>
 </div>
 </div>
 </section>
-<section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
-<h2>できるだけ探索的な回帰分析をやらない？</h2>
+<section id="つまり-2" class="slide level2">
+<h2>つまり</h2>
 <ul>
-<li><p>帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する</p>
+<li><p>（頻度、ベイズなど関係なく）統計的に推測を行うのであれば、まぐれ当たりは避けられない</p>
+<ul>
+<li><em>p</em> 値の補正、階層モデル、事前分布の活用など、対処法がそれぞれある</li>
+</ul></li>
+</ul>
+</section>
+<section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
+<h2>できるだけ探索的な回帰分析をやらない</h2>
+<ul>
+<li><p>帰無仮説検定を行う場合、<strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
 <ul>
 <li><p>関心のある変数が複数ある場合は補正をする</p></li>
 <li><p>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</p></li>
 </ul></li>
 </ul>
 </section>
-<section id="まとめ" class="slide level2">
-<h2>まとめ</h2>
+<section id="最後に" class="slide level2">
+<h2>最後に</h2>
 <ul>
 <li><p>係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく</p>
 <ul>
@@ -748,25 +822,26 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <p><strong>お願い</strong></p>
 </div>
 <div class="callout-content">
-<p>これに関する論文や本などで知っているものがあれば是非教えてください。</p>
+<p>この話題に関する論文や本などで知っているものがあれば是非教えてください。</p>
 </div>
 </div>
 </div>
+</section>
+<section id="謝辞" class="slide level2">
+<h2>謝辞</h2>
+<ul>
+<li>バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。</li>
+</ul>
 </section></section>
 <section>
 <section id="what-do-you-think" class="title-slide slide level1 center">
 <h1>What do you think?</h1>
 
 <img data-src="pics/thinking.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
-<section id="謝辞" class="slide level2">
-<h2>謝辞</h2>
-<ul>
-<li>バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。</li>
-</ul>
-</section>
 <section id="引用文献" class="slide level2">
 <h2>引用文献</h2>
 <ul>
+<li><p>Garcia, G. D. (2025). Bayesian estimation in multiple comparisons. <em>Studies in Second Language Acquisition</em>, 1–27.</p></li>
 <li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. <em>Instructed Second Language Acquisition, 3</em>(2), 124-152.</p></li>
 <li><p>Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., &amp; Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. <em>General Linear Model Journal, 32</em>(1), 1-6.</p></li>
 <li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. <em>Language learning, 71</em>(4), 1004-1043.</p></li>

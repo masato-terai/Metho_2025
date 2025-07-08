@@ -39,6 +39,8 @@ code-line-numbers: false
 
 ## 帰無仮説検定
 
+### ネイマン=ピアソン理論
+
 - 母数についての推定を行う
 
   - 帰無仮説が正しいと仮定をし、検定統計量の標本分布（帰無分布）での確率をもとに帰無仮説を検証
@@ -91,13 +93,13 @@ summary(model)
 
 - *F* 検定：モデルの当てはまりのよさ
 
-  - 帰無仮説：「母集団におけるモデル全体としての説明力がゼロ」 × 1
+  - 帰無仮説：「母集団におけるモデル全体としての説明力がゼロ」 × 1回
 
 - *t* 検定：各独立変数と従属変数の関係
 
   - 帰無仮説：「その説明変数 \( x \) の回帰係数はゼロ」 × 独立変数の数
 
-  - 帰無仮説：「切片はゼロ」 × 1
+  - 帰無仮説：「切片はゼロ」 × 1回
 
 # シミュレーションで検証してみた
 
@@ -146,7 +148,7 @@ results_df_1factor2 <- data.frame(
 )
 ```
 
-- 保存した1万個の*p* 値が0.05以下になっているかを確認
+- 保存した1万個の*p* 値が0.05になっているかを確認
 ```{{r}}
 mean(results_df_1factor2$p_value < alpha)
 ```
@@ -178,7 +180,7 @@ results_df_4 <- data.frame(
 
 
 ## 作成したモデルとその係数の数
-- すべてのモデルにおいて、サンプル数は300
+- **すべてのモデルにおいて、サンプル数は300**
 
 | モデルの内容                             | 係数 |
 |------------------------------------------|------------------------|
@@ -201,16 +203,6 @@ knitr::include_graphics("pics/histograms_coefficients.png")
 #| fig-align: center
 knitr::include_graphics("pics/gg_summary.png")
 ```
-
-## ちなみに
-
-- 混合効果モデル（**ランダム切片のみ**）でも結果は同じ
-
-```{r  echo=FALSE, out.width="80%"}
-#| fig-align: center
-knitr::include_graphics("pics/gg_GLMM_summary.png")
-```
-
 
 # どうしよう
 ```{r  echo=FALSE, out.width="80%"}
@@ -247,26 +239,96 @@ stats::p.adjust(pvals, method = "bonferroni")
   
   - Passoni, E., de Leeuw, E., & Levon, E. (2022). Bilinguals produce pitch range differently in their two languages to convey social meaning. *Language and speech, 65*(4), 1071-1095.
 
+## 階層モデルを使う？
+
+- 階層モデルがもたらす**縮約（shrinkage）**の効果
+
+::: {.callout-note}
+**縮約**：各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指す。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になる
+:::
+
+- *p* 値の補正よりも推奨されている（e.g., Garcia, 2025）
+
+
 ## ベイズ統計を行う？
 
 - 帰無仮説検定ではなくなるので、第一種の過誤の問題はなくなる
 
-::: {.callout-important title="重要"}
-ベイズ統計でも二値判断を行う分析・解釈はあります（e.g., 信用区間に0を含まない = Significant ）。ベイズ統計でも使い方次第では偶然の発見の過大解釈のリスクはゼロにはできません。
-:::
+- （階層）ベイズで事前分布の活用により**縮約**の恩恵も受けられる
 
-## できるだけ探索的な回帰分析をやらない？
+# それで全部解決？
 
-- 帰無仮説検定を行う場合、研究課題・仮説に関係のある特定の係数のみを解釈する
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/question.png")
+```
+
+## 階層モデル
+
+- 混合効果モデル（**ランダム切片のみ**）
+
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/gg_GLMM_summary.png")
+```
+
+## ベイズモデル（階層ではない）
+- 95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、**95%信用区間に0を含んだ係数の数を記録**。
+
+- ```Value```列はその割合
+
+```{r  echo=FALSE, out.width="80%"}
+#| fig-align: center
+knitr::include_graphics("pics/type1_error_table.png")
+```
+
+## つまり
+- 有意か非有意かの2値判断の場合、まぐれ当たりのリスクは階層モデルであろうが**完全には消えない**のでは！？
+
+- ベイズ統計でも**二値判断を行う解釈**の場合（e.g., 信用区間に0を含まない = Significant ）偶然の発見の過大解釈のリスクはゼロにはできない！？
+
+## 我々は統計的**推測**を行っている
+
+- 統計的推測は不確実性を含む
+
+  - 母平均が0でも、標本平均はばらつく
+
+```{{r}}
+set.seed(123)
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+```
+
+```{r}
+set.seed(123)
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+mean(rnorm(10000, mean = 0, sd = 2))
+```
+
+## つまり
+- （頻度、ベイズなど関係なく）統計的に推測を行うのであれば、まぐれ当たりは避けられない
+
+  - *p* 値の補正、階層モデル、事前分布の活用など、対処法がそれぞれある
+
+
+## できるだけ探索的な回帰分析をやらない
+
+- **研究課題・仮説**に関係のある特定の係数のみを解釈する
 
   - 関心のある変数が複数ある場合は補正をする
 
   - 共変量などモデルの全独立変数の係数の有意性を議論するのを避ける
 
   
-## まとめ
+## 最後に
 
-- 係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく
+- 係数の数が増えると、まぐれ当たり（第一種の過誤）の割合が増える可能性を理解しておく
 
   - それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です
   
@@ -275,8 +337,11 @@ stats::p.adjust(pvals, method = "bonferroni")
 - 回帰分析を行う際はモデルと研究課題の関係を理解しておく
 
 ::: {.callout-note title="お願い"}
-これに関する論文や本などで知っているものがあれば是非教えてください。
+この話題に関する論文や本などで知っているものがあれば是非教えてください。
 :::
+
+## 謝辞
+- バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。
 
 # What do you think?
 ```{r  echo=FALSE, out.width="80%"}
@@ -284,10 +349,9 @@ stats::p.adjust(pvals, method = "bonferroni")
 knitr::include_graphics("pics/thinking.png")
 ```
 
-## 謝辞
-- バーミンガム大学の村上明先生ならびに筑波大学の名畑目真吾先生には構想段階で貴重なアドバイスを沢山いただいたり、資料を共有していただきました。誠にありがとうございました。もちろん本発表内容の責任は全て寺井雅人にあります。もし誤っている点などがあれば全て寺井の責任です。
-
 ## 引用文献
+
+- Garcia, G. D. (2025). Bayesian estimation in multiple comparisons. *Studies in Second Language Acquisition*, 1–27. 
 
 - Michel, M., Murakami, A., Alexopoulou, T., & Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. *Instructed Second Language Acquisition, 3*(2), 124-152.
 
