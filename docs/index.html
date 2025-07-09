@@ -402,7 +402,7 @@
 </div>
 </div>
 
-  <p class="date">08-07-2025</p>
+  <p class="date">09-07-2025</p>
 </section>
 <section class="slide level2">
 
@@ -419,6 +419,8 @@
 <li>単語・コロケーションの記憶保持、処理過程<br>
 </li>
 <li>言語知識の身体性</li>
+<li>動機づけ</li>
+<li>TBLT</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:30%;">
@@ -426,6 +428,14 @@
 </div>
 </div>
 </section>
+<section id="メソ研での発表は初" class="slide level2">
+<h2>メソ研での発表は初！</h2>
+<h3 id="昨年論文を掲載していただきました">昨年論文を掲載していただきました</h3>
+<ul>
+<li>GitHubに関する論文も準備中です</li>
+</ul>
+
+<img data-src="pics/screenshot.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="帰無仮説検定" class="slide level2">
 <h2>帰無仮説検定</h2>
 <h3 id="ネイマンピアソン理論">ネイマン=ピアソン理論</h3>
@@ -647,13 +657,18 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </tr>
 </tbody>
 </table>
+</section></section>
+<section>
+<section id="シミュレーション結果" class="title-slide slide level1 center">
+<h1>シミュレーション結果</h1>
+
 </section>
-<section id="結果-モデルの最小-p-値と係数の数" class="slide level2">
-<h2>結果： モデルの最小 <em>p</em> 値と係数の数</h2>
+<section id="モデルの最小-p-値と係数の数" class="slide level2">
+<h2>モデルの最小 <em>p</em> 値と係数の数</h2>
 
 <img data-src="pics/histograms_coefficients.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
-<section id="結果p-値と係数の数" class="slide level2">
-<h2>結果：<em>p</em> 値と係数の数</h2>
+<section id="p-値と係数の数" class="slide level2">
+<h2><em>p</em> 値と係数の数</h2>
 
 <img data-src="pics/gg_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
 <section>
@@ -725,7 +740,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="それで全部解決" class="title-slide slide level1 center">
 <h1>それで全部解決？</h1>
 
-<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
 <section id="階層モデル" class="slide level2">
 <h2>階層モデル</h2>
 <ul>
@@ -736,7 +751,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="ベイズモデル階層ではない" class="slide level2">
 <h2>ベイズモデル（階層ではない）</h2>
 <ul>
-<li><p>95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、<strong>95%信用区間に0を含んだ係数の数を記録</strong>。</p></li>
+<li><p>95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、<strong>95%信用区間に0を含んでない割合を記録</strong>。</p></li>
 <li><p><code>Value</code>列はその割合</p></li>
 </ul>
 
@@ -794,17 +809,16 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
 <h2>できるだけ探索的な回帰分析をやらない</h2>
 <ul>
-<li><p>帰無仮説検定を行う場合、<strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
+<li><p><strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
 <ul>
-<li><p>関心のある変数が複数ある場合は補正をする</p></li>
-<li><p>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</p></li>
+<li>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</li>
 </ul></li>
 </ul>
 </section>
 <section id="最後に" class="slide level2">
 <h2>最後に</h2>
 <ul>
-<li><p>係数の数が増えると、第一種の過誤の割合が増える可能性を理解しておく</p>
+<li><p>係数の数が増えると、まぐれ当たり（第一種の過誤）の割合が増える可能性を理解しておく</p>
 <ul>
 <li><p>それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</p>
 <ul>

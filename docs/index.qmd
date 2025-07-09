@@ -29,6 +29,8 @@ code-line-numbers: false
 - 研究分野：心理言語学、外国語教育  
   - 単語・コロケーションの記憶保持、処理過程  
   - 言語知識の身体性
+  - 動機づけ
+  - TBLT
 :::
 
 ::: {.column width="30%"}
@@ -36,6 +38,14 @@ code-line-numbers: false
 :::
 
 :::
+
+## メソ研での発表は初！
+### 昨年論文を掲載していただきました
+- GitHubに関する論文も準備中です
+```{r  echo=FALSE, out.width="100%"}
+#| fig-align: center
+knitr::include_graphics("pics/screenshot.png")
+```
 
 ## 帰無仮説検定
 
@@ -190,14 +200,16 @@ results_df_4 <- data.frame(
 | 1要因（2水準）＋連続変数6つ              | 7                      |
 | 1要因（2水準）＋連続変数13つ             | 14                     |
 
+# シミュレーション結果
 
-## 結果： モデルの最小 *p* 値と係数の数
+
+## モデルの最小 *p* 値と係数の数
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: center
 knitr::include_graphics("pics/histograms_coefficients.png")
 ```
 
-## 結果：*p* 値と係数の数
+## *p* 値と係数の数
 
 ```{r  echo=FALSE, out.width="80%"}
 #| fig-align: center
@@ -259,7 +271,7 @@ stats::p.adjust(pvals, method = "bonferroni")
 # それで全部解決？
 
 ```{r  echo=FALSE, out.width="80%"}
-#| fig-align: center
+#| fig-align: right
 knitr::include_graphics("pics/question.png")
 ```
 
@@ -273,7 +285,7 @@ knitr::include_graphics("pics/gg_GLMM_summary.png")
 ```
 
 ## ベイズモデル（階層ではない）
-- 95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、**95%信用区間に0を含んだ係数の数を記録**。
+- 95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、**95%信用区間に0を含んでない割合を記録**。
 
 - ```Value```列はその割合
 
@@ -320,8 +332,6 @@ mean(rnorm(10000, mean = 0, sd = 2))
 ## できるだけ探索的な回帰分析をやらない
 
 - **研究課題・仮説**に関係のある特定の係数のみを解釈する
-
-  - 関心のある変数が複数ある場合は補正をする
 
   - 共変量などモデルの全独立変数の係数の有意性を議論するのを避ける
 
