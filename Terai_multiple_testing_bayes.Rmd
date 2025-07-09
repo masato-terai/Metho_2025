@@ -1,0 +1,242 @@
+---
+title: "重回帰分析における検定の多重性について"
+subtitle: "ベイズ"
+author: "寺井雅人"
+output: html_document
+date: "Published:2025-07-4, Last update(JST): `r format(Sys.time(), '%Y-%m-%d %X')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PCの情報
+## モデル、プロセッサー
+```{r}
+benchmarkme::get_cpu()
+```
+
+## RAMの数
+```{r}
+benchmarkme::get_ram()
+```
+
+# Rの情報
+```{r}
+sessionInfo()
+```
+
+# 使用する関数
+
+```{r}
+library(brms)
+library(tidybayes)
+library(tibble)
+library(dplyr)
+library(rstan)
+library(tictoc)
+library(dplyr)
+library(tidyr)
+library(gt)
+```
+
+```{r}
+rstan_options(auto_write = T)
+options(mc.cores = parallel::detectCores())
+```
+
+
+# シミュレーション
+## 設定
+
+- 推定に時間がかかるため、1モデルあたり100回の回帰分析を行っている
+
+```{r}
+set.seed(123)
+n_sim <- 100
+n_per_group <- 50
+```
+
+```{r}
+prior <- prior(normal(0, 5), class = "b")
+```
+
+
+## 1要因2水準モデル
+
+### 係数の数 = 1
+
+```{r}
+tic()
+sim_results <- replicate(n_sim, {
+  A <- factor(rep(c("X", "Y"), each = n_per_group))
+  y <- rnorm(2 * n_per_group, mean = 0, sd = 2)  # 真の差 = 0
+  
+  data_sim <- data.frame(y = y, A = A)
+  
+  # モデルをフィット
+  fit <- brm(
+    formula = y ~ A,
+    data = data_sim,
+    prior = prior,
+    seed = 1234,
+    iter = 2000,
+    chains = 2,
+    refresh = 0,
+    silent = TRUE,
+    file = NULL
+  )
+  
+  # 切片以外の係数の信用区間が 0 を含まないか
+  posterior_summary <- as_draws_df(fit) %>%
+    spread_draws(b_AY) %>%
+    median_qi(b_AY, .width = 0.95)
+  
+  excl_zero <- with(posterior_summary, !(.lower <= 0 & .upper >= 0))  # 0を含まない
+  coef_count <- 1  # Aの1係数（切片除く）
+  
+  c(excl_zero, coef_count)
+}, simplify = "matrix")
+
+toc()
+```
+
+```{r}
+results_df <- as.data.frame(t(sim_results))
+colnames(results_df) <- c("excludes_zero", "coef_count")
+results_df$excludes_zero <- as.logical(results_df$excludes_zero)
+```
+
+### ベイズ的タイプ1エラー率
+```{r}
+mean(results_df$excludes_zero) 
+```
+
+## 1要因4水準モデル
+
+### 係数の数 = 3
+
+```{r}
+n_per_level <- 25  # 各水準のサンプル数
+```
+
+```{r}
+tic()
+sim_results_1f4 <- replicate(n_sim, {
+  A <- factor(rep(c("a", "b", "c", "d"), each = n_per_level))
+  y <- rnorm(4 * n_per_level, mean = 0, sd = 2)  # 帰無仮説：効果なし
+  
+  data_sim <- data.frame(y = y, A = A)
+  
+  fit <- brm(
+    y ~ A,
+    data = data_sim,
+    prior = prior,
+    seed = 1234,
+    iter = 2000, chains = 2,
+    refresh = 0,
+    silent = TRUE,
+    file = NULL
+  )
+  
+  # 切片以外の係数（b_Ab, b_Ac, b_Ad）を取得
+  draws <- as_draws_df(fit) %>%
+    select(starts_with("b_A")) %>%
+    pivot_longer(everything(), names_to = "term", values_to = "value") %>%
+    group_by(term) %>%
+    summarise(.lower = quantile(value, 0.025),
+              .upper = quantile(value, 0.975)) %>%
+    mutate(excludes_zero = !(.lower <= 0 & .upper >= 0))
+  
+  # 偽陽性（0を含まない係数）の数
+  sum(draws$excludes_zero)
+}, simplify = TRUE)
+toc()
+```
+
+### ベイズ的タイプ1エラー率
+```{r}
+mean(sim_results_1f4 > 0)
+```
+
+## 1要因2水準モデル + 連続変数5つ
+
+### 係数の数 = 6
+```{r}
+n_per_level <- 25  # 各水準のサンプル数
+n <- 2 * n_per_level 
+```
+
+```{r}
+tic()
+sim_results_1f2_c5 <- replicate(n_sim, {
+  A <- factor(rep(c("a", "b"), each = n_per_level))
+  y <- rnorm(n, mean = 0, sd = 2)  # 真の差 = 0
+  C1 <- rnorm(n)
+  C2 <- rnorm(n)
+  C3 <- rnorm(n)
+  C4 <- rnorm(n)
+  C5 <- rnorm(n)
+  
+  data_sim <- data.frame(y = y, A = A, C1 = C1, C2 = C2, C3 = C3, C4 = C4, C5 = C5)
+  
+  fit <- brm(
+    y ~ A + C1 + C2 + C3 + C4 + C5,
+    data = data_sim,
+    prior = prior,
+    seed = 1234,
+    iter = 2000,
+    chains = 2,
+    refresh = 0,
+    silent = TRUE,
+    file = NULL
+  )
+  
+  # 切片以外の係数を抽出（b_Intercept以外）
+  draws <- as_draws_df(fit) %>%
+    select(starts_with("b_")) %>%
+    select(-b_Intercept) %>%
+    pivot_longer(everything(), names_to = "term", values_to = "value") %>%
+    group_by(term) %>%
+    summarise(
+      .lower = quantile(value, 0.025),
+      .upper = quantile(value, 0.975)
+    ) %>%
+    mutate(excludes_zero = !(.lower <= 0 & .upper >= 0))
+  
+  sum(draws$excludes_zero)  # 偽陽性の数（信用区間が0を含まない係数数）
+}, simplify = TRUE)
+toc()
+```
+
+### ベイズ的タイプ1エラー率
+
+```{r}
+mean(sim_results_1f2_c5 > 0)
+```
+
+# 表
+
+```{r}
+tablegt <- data.frame(
+  One = mean(results_df$excludes_zero),
+  Three = mean(sim_results_1f4 > 0),
+  Six = mean(sim_results_1f2_c5 > 0)
+  ) %>%
+  pivot_longer(cols = 1:3, names_to = 
+                 "係数の数") %>%
+  group_by(係数の数) %>%
+  summarise(Value = mean(value)) %>%
+  arrange(Value) %>%
+  gt() %>%
+  tab_header(title = "係数の数とベイズ的Type 1 Error 率") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+
+tablegt
+```
+
+```{r}
+gtsave(tablegt, filename = "../docs/pics/type1_error_table.png")
+```
+
