@@ -47,9 +47,11 @@ code-line-numbers: false
 knitr::include_graphics("pics/screenshot.png")
 ```
 
-#
-![](pics/go.png){width=100% height=100% style="object-fit: cover;"}
-
+# 
+```{r  echo=FALSE, out.width="90%"}
+#| fig-align: center
+knitr::include_graphics("pics/go.png")
+```
 
 
 ## 帰無仮説検定
