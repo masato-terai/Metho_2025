@@ -403,7 +403,7 @@
 </div>
 </div>
 
-  <p class="date">12-07-2025</p>
+  <p class="date">13-07-2025</p>
 </section>
 <section class="slide level2">
 
@@ -746,18 +746,14 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <h1>それで全部解決？</h1>
 
 <img data-src="pics/question.png" class="quarto-figure quarto-figure-right r-stretch" style="width:80.0%"></section>
-<section id="階層モデル" class="slide level2">
-<h2>階層モデル</h2>
-<ul>
-<li>混合効果モデル（<strong>ランダム切片のみ</strong>）</li>
-</ul>
+<section id="階層モデルランダム切片のみ" class="slide level2">
+<h2>階層モデル（<strong>ランダム切片のみ</strong>）</h2>
 
 <img data-src="pics/gg_GLMM_summary.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="ベイズモデル階層ではない" class="slide level2">
 <h2>ベイズモデル（階層ではない）</h2>
 <ul>
-<li><p>95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、<strong>95%信用区間に0を含んでない割合を記録</strong>。</p></li>
-<li><p><code>Value</code>列はその割合</p></li>
+<li>95%信用区間に0を含む結果が正しいデータに対し、回帰分析を100回行い、<strong>95%信用区間に0を含んでない割合を記録</strong>。</li>
 </ul>
 
 <img data-src="pics/type1_error_table.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
@@ -810,22 +806,18 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <li><em>p</em> 値の補正、階層モデル、事前分布の活用など、対処法がそれぞれある</li>
 </ul></li>
 </ul>
-</section>
-<section id="探索的な回帰分析は控える" class="slide level2">
-<h2>探索的な回帰分析は控える</h2>
-<ul>
-<li><p><strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
-<ul>
-<li>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</li>
-</ul></li>
-</ul>
+</section></section>
+<section>
+<section id="まとめ" class="title-slide slide level1 center">
+<h1>まとめ</h1>
+
 </section>
 <section id="最後に" class="slide level2">
 <h2>最後に</h2>
 <ul>
-<li><p>係数の数が増えると、まぐれ当たり（第一種の過誤）の割合が増える可能性を理解しておく</p>
+<li><p>係数の数が増えると、まぐれ当たりの割合が増える可能性を理解しておく</p>
 <ul>
-<li>それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</li>
+<li>これがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</li>
 </ul></li>
 <li><p>第一種の過誤ではなく、<strong>S（Sign）の過誤</strong>、<strong>M（Magnitude）の過誤</strong>を考慮するという考えもある（Gelman et al., 2012）</p>
 <ul>
@@ -839,6 +831,15 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="回帰分析は研究課題から焦点を当てる係数を整理した上で解釈することが大事ということは間違いないと思います" class="title-slide slide level1 center">
 <h1>回帰分析は、<strong>研究課題から焦点を当てる係数を整理した上で解釈する</strong>ことが大事ということは間違いないと思います！</h1>
 
+</section>
+<section id="探索的な解釈は控える" class="slide level2">
+<h2>探索的な解釈は控える</h2>
+<ul>
+<li><p><strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
+<ul>
+<li>共変量などモデルの全独立変数の係数の有意性を議論するのを避ける</li>
+</ul></li>
+</ul>
 </section>
 <section id="謝辞" class="slide level2">
 <h2>謝辞</h2>
