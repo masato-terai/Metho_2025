@@ -27,7 +27,7 @@ code-line-numbers: false
 - X: [@uniquefreshman](https://twitter.com/uniquefreshman)  
 - 所属：愛知工科大学（2023–）  
 - 研究：SLA、心理言語学、英語教育  
-  - 単語・コロケーションの記憶保持、処理過程  
+  - 単語・コロケーションの記憶保持、処理  
   - 言語知識の身体性
   - 動機づけ
   - TBLT
