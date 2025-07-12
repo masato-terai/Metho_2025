@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="寺井雅人 (愛知工科大学)">
   <title>帰無仮説検定をもとにした回帰分析の検定の多重性について</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -42,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -221,7 +221,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -402,7 +403,7 @@
 </div>
 </div>
 
-  <p class="date">09-07-2025</p>
+  <p class="date">12-07-2025</p>
 </section>
 <section class="slide level2">
 
@@ -416,7 +417,7 @@
 </li>
 <li>研究：SLA、心理言語学、英語教育
 <ul>
-<li>単語・コロケーションの記憶保持、処理過程<br>
+<li>単語・コロケーションの記憶保持、処理<br>
 </li>
 <li>言語知識の身体性</li>
 <li>動機づけ</li>
@@ -425,8 +426,7 @@
 </ul>
 </div><div class="column" style="width:30%;">
 <p><img src="https://pbs.twimg.com/profile_images/1635931181811404800/c_Hk1vp7_400x400.jpg" width="200" style="border-radius: 50%;"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="メソ研での発表は初" class="slide level2">
 <h2>メソ研での発表は初！</h2>
@@ -435,12 +435,12 @@
 <li>GitHubに関する論文も準備中です</li>
 </ul>
 
-<img data-src="pics/screenshot.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/screenshot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section>
 <section id="section" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="pics/go.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/go.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
 <section id="帰無仮説検定" class="slide level2">
 <h2>帰無仮説検定</h2>
 <h3 id="ネイマンピアソン理論">ネイマン=ピアソン理論</h3>
@@ -535,7 +535,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <h1>シミュレーションで検証してみた</h1>
 
 </section>
-<section id="シミュレーションの方法" class="slide level2">
+<section id="シミュレーションの方法" class="slide level2 scrollable">
 <h2>シミュレーションの方法</h2>
 <ol type="1">
 <li><p>帰無仮説が正しいデータを作成</p></li>
@@ -566,73 +566,73 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <ul>
 <li>共通の設定</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性確保</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">10000</span>  <span class="co"># シミュレーション回数</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">150</span>  <span class="co"># 各グループのサンプルサイズ</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span>  <span class="co"># 有意水準</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(123)  # 再現性確保</span></span>
+<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">n_sim &lt;- 10000  # シミュレーション回数</span></span>
+<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">n_per_group &lt;- 150  # 各グループのサンプルサイズ</span></span>
+<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">alpha &lt;- 0.05  # 有意水準</span></span>
+<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>例）1要因2水準モデル</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results_1factor2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>), <span class="at">each =</span> n_per_group))  <span class="co"># 2水準</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">2</span> <span class="sc">*</span> n_per_group, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># 帰無仮説が正しい</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A)  <span class="co"># 線形回帰</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  coef_count_excl_intercept <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(model)) <span class="sc">-</span> <span class="dv">1</span>  <span class="co"># 切片を除いた係数の数を保存</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  p_value <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]  <span class="co"># p値を保存</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(p_value, coef_count_excl_intercept) </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果をデータフレームに変換</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>results_df_1factor2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> results_1factor2[<span class="dv">1</span>, ],  <span class="co"># p値</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_count =</span> results_1factor2[<span class="dv">2</span>, ]  <span class="co"># 切片を除いた係数の数</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">results_1factor2 &lt;- replicate(n_sim, {</span></span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  A &lt;- factor(rep(c("X", "Y"), each = n_per_group))  # 2水準</span></span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;- rnorm(2 * n_per_group, mean = 0, sd = 2)  # 帰無仮説が正しい</span></span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  model &lt;- lm(y ~ A)  # 線形回帰</span></span>
+<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  coef_count_excl_intercept &lt;- length(coef(model)) - 1  # 切片を除いた係数の数を保存</span></span>
+<span id="cb3-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  p_value &lt;- summary(model)$coefficients[2, 4]  # p値を保存</span></span>
+<span id="cb3-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb3-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  c(p_value, coef_count_excl_intercept) </span></span>
+<span id="cb3-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb3-12"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in"># 結果をデータフレームに変換</span></span>
+<span id="cb3-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">results_df_1factor2 &lt;- data.frame(</span></span>
+<span id="cb3-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  p_value = results_1factor2[1, ],  # p値</span></span>
+<span id="cb3-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  coef_count = results_1factor2[2, ]  # 切片を除いた係数の数</span></span>
+<span id="cb3-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb3-18"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>保存した1万個の<em>p</em> 値が0.05になっているかを確認</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(results_df_1factor2<span class="sc">$</span>p_value <span class="sc">&lt;</span> alpha)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(results_df_1factor2$p_value &lt; alpha)</span></span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="分析コード-1" class="slide level2">
 <h2>分析コード</h2>
 <ul>
 <li>3水準以上だと係数が複数になるため、係数の中で一番小さい <em>p</em> 値のみを格納</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>results_2factor2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>), <span class="at">each =</span> n_per_group<span class="sc">/</span><span class="dv">2</span>), <span class="dv">2</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"N"</span>), <span class="at">each =</span> <span class="dv">2</span> <span class="sc">*</span> n_per_group<span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">2</span> <span class="sc">*</span> n_per_group, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>) </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">+</span> B) </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  coef_count_excl_intercept <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(model)) <span class="sc">-</span> <span class="dv">1</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  anova_p <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>] </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  min_p <span class="ot">&lt;-</span> <span class="fu">min</span>(anova_p)  <span class="co"># 最小のp値のみを格納</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(min_p, coef_count_excl_intercept) </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>results_df_4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> results_2factor2[<span class="dv">1</span>, ], </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_count =</span> results_2factor2[<span class="dv">2</span>, ] </span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">results_2factor2 &lt;- replicate(n_sim, {</span></span>
+<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">A &lt;- factor(rep(rep(c("X", "Y"), each = n_per_group/2), 2))</span></span>
+<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  B &lt;- factor(rep(c("M", "N"), each = 2 * n_per_group/2))</span></span>
+<span id="cb5-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;- rnorm(2 * n_per_group, mean = 0, sd = 2) </span></span>
+<span id="cb5-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  model &lt;- lm(y ~ A + B) </span></span>
+<span id="cb5-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  coef_count_excl_intercept &lt;- length(coef(model)) - 1 </span></span>
+<span id="cb5-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  anova_p &lt;- summary(model)$coefficients[-1, 4] </span></span>
+<span id="cb5-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  min_p &lt;- min(anova_p)  # 最小のp値のみを格納</span></span>
+<span id="cb5-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-12"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  c(min_p, coef_count_excl_intercept) </span></span>
+<span id="cb5-13"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb5-14"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">results_df_4 &lt;- data.frame(</span></span>
+<span id="cb5-16"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  p_value = results_2factor2[1, ], </span></span>
+<span id="cb5-18"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">  coef_count = results_2factor2[2, ] </span></span>
+<span id="cb5-20"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb5-21"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="作成したモデルとその係数の数" class="slide level2">
 <h2>作成したモデルとその係数の数</h2>
 <ul>
 <li><strong>すべてのモデルにおいて、サンプル数は300</strong></li>
 </ul>
-<table>
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th>モデルの内容</th>
@@ -671,16 +671,16 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="モデルの最小-p-値と係数の数" class="slide level2">
 <h2>モデルの最小 <em>p</em> 値と係数の数</h2>
 
-<img data-src="pics/histograms_coefficients.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/histograms_coefficients.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="p-値と係数の数" class="slide level2">
 <h2><em>p</em> 値と係数の数</h2>
 
-<img data-src="pics/gg_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="pics/gg_summary.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section></section>
 <section>
 <section id="どうしよう" class="title-slide slide level1 center">
 <h1>どうしよう</h1>
 
-<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
+<img data-src="pics/question.png" class="quarto-figure quarto-figure-right r-stretch" style="width:80.0%"></section>
 <section id="p-値を補正する" class="slide level2">
 <h2><em>p</em> 値を補正する？</h2>
 <ul>
@@ -690,15 +690,15 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul></li>
 <li><p><code>p.adjust()</code>関数の例</p></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> vs <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># すべての p 値を取得</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pvals_all <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[, <span class="st">"Pr(&gt;|t|)"</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Intercept を除いて取得</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> pvals_all[<span class="fu">names</span>(pvals_all) <span class="sc">!=</span> <span class="st">"(Intercept)"</span>]</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 補正（Bonferroni など）</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">model &lt;- lm(mpg ~ vs + wt, data = mtcars)</span></span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in"># すべての p 値を取得</span></span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">pvals_all &lt;- summary(model)$coefficients[, "Pr(&gt;|t|)"]</span></span>
+<span id="cb6-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in"># Intercept を除いて取得</span></span>
+<span id="cb6-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">pvals &lt;- pvals_all[names(pvals_all) != "(Intercept)"]</span></span>
+<span id="cb6-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in"># 補正（Bonferroni など）</span></span>
+<span id="cb6-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">stats::p.adjust(pvals, method = "bonferroni")</span></span>
+<span id="cb6-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="言語研究の実情" class="slide level2">
 <h2>言語研究の実情</h2>
@@ -745,14 +745,14 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="それで全部解決" class="title-slide slide level1 center">
 <h1>それで全部解決？</h1>
 
-<img data-src="pics/question.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
+<img data-src="pics/question.png" class="quarto-figure quarto-figure-right r-stretch" style="width:80.0%"></section>
 <section id="階層モデル" class="slide level2">
 <h2>階層モデル</h2>
 <ul>
 <li>混合効果モデル（<strong>ランダム切片のみ</strong>）</li>
 </ul>
 
-<img data-src="pics/gg_GLMM_summary.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/gg_GLMM_summary.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="ベイズモデル階層ではない" class="slide level2">
 <h2>ベイズモデル（階層ではない）</h2>
 <ul>
@@ -760,7 +760,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <li><p><code>Value</code>列はその割合</p></li>
 </ul>
 
-<img data-src="pics/type1_error_table.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="pics/type1_error_table.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="つまり-1" class="slide level2">
 <h2>つまり</h2>
 <ul>
@@ -776,14 +776,14 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <li>母平均が0でも、標本平均はばらつく</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(123)</span></span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(rnorm(10000, mean = 0, sd = 2))</span></span>
+<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(rnorm(10000, mean = 0, sd = 2))</span></span>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(rnorm(10000, mean = 0, sd = 2))</span></span>
+<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(rnorm(10000, mean = 0, sd = 2))</span></span>
+<span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(rnorm(10000, mean = 0, sd = 2))</span></span>
+<span id="cb7-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.004743404</code></pre>
@@ -832,6 +832,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul></li>
 <li><p>回帰分析を行う際はモデルと研究課題の関係を理解しておく</p></li>
 </ul>
+<div title="お願い">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -842,6 +843,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </div>
 <div class="callout-content">
 <p>この話題に関する論文や本などで知っているものがあれば是非教えてください。</p>
+</div>
 </div>
 </div>
 </div>
@@ -856,7 +858,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <section id="what-do-you-think" class="title-slide slide level1 center">
 <h1>What do you think?</h1>
 
-<img data-src="pics/thinking.png" style="width:80.0%" class="r-stretch quarto-figure-right"></section>
+<img data-src="pics/thinking.png" class="quarto-figure quarto-figure-right r-stretch" style="width:80.0%"></section>
 <section id="引用文献" class="slide level2">
 <h2>引用文献</h2>
 <ul>
@@ -869,8 +871,10 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </section></section>
 <section id="スライドの最後です" class="title-slide slide level1 center">
 <h1>スライドの最後です</h1>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -899,7 +903,6 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1085,42 +1088,80 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1154,18 +1195,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1197,11 +1227,50 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1211,8 +1280,17 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1226,7 +1304,11 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
