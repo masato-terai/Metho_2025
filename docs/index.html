@@ -811,8 +811,8 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="できるだけ探索的な回帰分析をやらない" class="slide level2">
-<h2>できるだけ探索的な回帰分析をやらない</h2>
+<section id="探索的な回帰分析は控える" class="slide level2">
+<h2>探索的な回帰分析は控える</h2>
 <ul>
 <li><p><strong>研究課題・仮説</strong>に関係のある特定の係数のみを解釈する</p>
 <ul>
@@ -825,12 +825,20 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <ul>
 <li><p>係数の数が増えると、まぐれ当たり（第一種の過誤）の割合が増える可能性を理解しておく</p>
 <ul>
-<li><p>それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</p>
+<li>それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です</li>
+</ul></li>
+<li><p>第一種の過誤ではなく、<strong>S（Sign）の過誤</strong>、<strong>M（Magnitude）の過誤</strong>を考慮するという考えもある（Gelman et al., 2012）</p>
 <ul>
-<li>だから追試も必要？</li>
+<li><p>第一種の過誤：<em>β</em> = 0を正しいと仮定するが、実際にそのような仮定をもつことはあまりない？</p></li>
+<li><p>Sの過誤：e.g., 実際の効果が負なのに（<em>β</em> &lt; 0）、正（<em>β</em> &gt; 0）と報告する</p></li>
+<li><p>Mの過誤：e.g., ゼロに近い効果しかないのに、大きな効果であると報告する</p></li>
 </ul></li>
-</ul></li>
-<li><p>回帰分析を行う際はモデルと研究課題の関係を理解しておく</p></li>
+</ul>
+</section>
+<section id="最後に-1" class="slide level2">
+<h2>最後に</h2>
+<ul>
+<li>でもやはり、回帰分析を行う際はモデルと研究課題の関係を理解しておく</li>
 </ul>
 <div title="お願い">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -863,6 +871,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <h2>引用文献</h2>
 <ul>
 <li><p>Garcia, G. D. (2025). Bayesian estimation in multiple comparisons. <em>Studies in Second Language Acquisition</em>, 1–27.</p></li>
+<li><p>Gelman, A., Hill, J., &amp; Yajima, M. (2012). Why we (usually) don’t have to worry about multiple comparisons. <em>Journal of Research on Educational Effectiveness, 5</em>(2), 189–211.</p></li>
 <li><p>Michel, M., Murakami, A., Alexopoulou, T., &amp; Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. <em>Instructed Second Language Acquisition, 3</em>(2), 124-152.</p></li>
 <li><p>Mundfrom, D. J., Perrett, J. J., Schaffer, J., Piccone, A., &amp; Roozeboom, M. (2006). Bonferroni adjustments in tests for regression coefficients. <em>General Linear Model Journal, 32</em>(1), 1-6.</p></li>
 <li><p>Nahatame, S. (2021). Text readability and processing effort in second language reading: A computational and eye‐tracking investigation. <em>Language learning, 71</em>(4), 1004-1043.</p></li>

@@ -336,22 +336,28 @@ mean(rnorm(10000, mean = 0, sd = 2))
   - *p* 値の補正、階層モデル、事前分布の活用など、対処法がそれぞれある
 
 
-## できるだけ探索的な回帰分析をやらない
+## 探索的な回帰分析は控える
 
 - **研究課題・仮説**に関係のある特定の係数のみを解釈する
 
   - 共変量などモデルの全独立変数の係数の有意性を議論するのを避ける
 
-  
 ## 最後に
 
 - 係数の数が増えると、まぐれ当たり（第一種の過誤）の割合が増える可能性を理解しておく
 
   - それがこの分野でどの程度の問題を引き起こしているかは僕の中で未知数です
   
-    - だから追試も必要？
+- 第一種の過誤ではなく、**S（Sign）の過誤**、**M（Magnitude）の過誤**を考慮するという考えもある（Gelman et al., 2012）
 
-- 回帰分析を行う際はモデルと研究課題の関係を理解しておく
+  - 第一種の過誤：*β* = 0を正しいと仮定するが、実際にそのような仮定をもつことはあまりない？
+    
+  - Sの過誤：e.g., 実際の効果が負なのに（*β* < 0）、正（*β* > 0）と報告する
+      
+  - Mの過誤：e.g., ゼロに近い効果しかないのに、大きな効果であると報告する
+
+## 最後に
+- でもやはり、回帰分析を行う際はモデルと研究課題の関係を理解しておく
 
 ::: {.callout-note title="お願い"}
 この話題に関する論文や本などで知っているものがあれば是非教えてください。
@@ -368,7 +374,10 @@ knitr::include_graphics("pics/thinking.png")
 
 ## 引用文献
 
-- Garcia, G. D. (2025). Bayesian estimation in multiple comparisons. *Studies in Second Language Acquisition*, 1–27. 
+- Garcia, G. D. (2025). Bayesian estimation in multiple comparisons. *Studies in Second Language Acquisition*, 1–27.
+
+- Gelman, A., Hill, J., & Yajima, M. (2012). Why we (usually) don’t have to worry about multiple comparisons.
+*Journal of Research on Educational Effectiveness, 5*(2), 189–211.
 
 - Michel, M., Murakami, A., Alexopoulou, T., & Meurers, D. (2019). Effects of task type on morphosyntactic complexity across proficiency. *Instructed Second Language Acquisition, 3*(2), 124-152.
 
