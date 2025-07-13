@@ -39,14 +39,6 @@ code-line-numbers: false
 
 :::
 
-## メソ研での発表は初！
-### 昨年論文を掲載していただきました
-- GitHubに関する論文も準備中です
-```{r  echo=FALSE, out.width="100%"}
-#| fig-align: center
-knitr::include_graphics("pics/screenshot.png")
-```
-
 # 
 ```{r  echo=FALSE, out.width="90%"}
 #| fig-align: center
@@ -126,7 +118,7 @@ summary(model)
 
 2. 回帰分析を1万回行い、*p* 値を記録
 
-3. 1万個の *p* 値の平均が0.05よりも下回っているかを確認
+3. 1万個の *p* 値のなかで、それが0.05を下回っている割合が5%以下になってるかを確認
 
 # 仮説：係数の数 > 1だと、帰無仮説検定を > 1回行うことになる。従って、第一種の過誤の割合が増加する。
 
