@@ -163,7 +163,7 @@ results_df_1factor2 <- data.frame(
 )
 ```
 
-- 保存した1万個の*p* 値が0.05になっているかを確認
+- 保存した1万個の*p* 値の割合（*α* < 0.05）を算出
 ```{{r}}
 mean(results_df_1factor2$p_value < alpha)
 ```

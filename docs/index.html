@@ -594,7 +594,7 @@ F-statistic: 58.36 on 2 and 29 DF,  p-value: 6.818e-11</code></pre>
 <span id="cb3-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
 <span id="cb3-18"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>保存した1万個の<em>p</em> 値が0.05になっているかを確認</li>
+<li>保存した1万個の<em>p</em> 値の割合（<em>α</em> &lt; 0.05）を算出</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">mean(results_df_1factor2$p_value &lt; alpha)</span></span>
