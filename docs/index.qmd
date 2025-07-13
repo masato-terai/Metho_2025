@@ -39,6 +39,12 @@ code-line-numbers: false
 
 :::
 
+# メソ研発表デビュー
+昨年Gitに関する論文を掲載していただきました
+
+- GitHubに関する論文も準備中です 
+<img data-src="pics/screenshot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%">
+
 # 
 ```{r  echo=FALSE, out.width="90%"}
 #| fig-align: center
