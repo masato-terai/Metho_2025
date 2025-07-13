@@ -11,10 +11,10 @@ format:
     slide-number: true
 scrollable: true
 title-slide-attributes:
-  data-background-image: pics/maron.png
-  data-background-size: 15%
+  data-background-image: pics/maron.png, pics/nikukyu.png
+  data-background-size: 15%, 50%
   data-background-opacity: "0.5"
-  data-background-position: 5% 98%
+  data-background-position: 5% 98%, center
 highlight-style: atom-one
 code-line-numbers: false
 ---
